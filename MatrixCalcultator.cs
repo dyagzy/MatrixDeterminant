@@ -8,13 +8,7 @@ namespace MatrixArray
 {
     public class MatrixCalcultator
     {
-        int _row;
-        int _col;
-        public MatrixCalcultator(int rows, int cols)
-        {
-            this._row= rows;
-            this._col = cols;
-        }
+        
         public static void PromptUser()
         {
 
@@ -52,7 +46,7 @@ namespace MatrixArray
                             double[,] array2D = new double[rows, cols];
 
                             /* Accepts each elements of the Matrix to be created from the user*/
-                            int i, j;
+                            int i, j = 0;
                             for ( i = 0; i < rows; i++)
                             {
                                
@@ -77,13 +71,38 @@ namespace MatrixArray
                                     
                                 }
                                 Console.WriteLine("\n");
-                                int numElemnt = array2D[i, j].ToString().Count();
-                                Console.WriteLine( "Number of element in the array is : {0}", numElemnt);
+                                
 
                             }
-                            
+                            double elementCount = array2D.Length;
+                            Console.WriteLine("Number of element in the array is : {0}", elementCount);
+                            Console.WriteLine();
+                            Console.Write("Your matrix is a {0} by {1} Matrix", rows , cols);
+                            Console.WriteLine();
+                            Console.WriteLine("Would you like to calculate its determinant?");
+                            string deterAns = Console.ReadLine();
+                            string ans = deterAns.ToLower();
+                            if (ans =="yes")
+                            {
+                                if (elementCount == 4)
+                                {
+                                    Console.WriteLine();
+                                    double determinant = MatrixDeterminant_2By2(array2D, rows, cols);
+                                    Console.WriteLine(" The determinanat of the matrix above is {0} matrix   ", determinant);
+                                    Console.ReadLine();
+                                }
+                                else if (elementCount == 9)
+                                {
+                                    Console.WriteLine();
+                                    double determinant = MatrixDeterminant_3By3(array2D, rows, cols);
+                                    Console.WriteLine(" The determinanat of the matrix above is {0} matrix   ", determinant);
+                                    Console.ReadLine();
+                                }
+                                
+                            }
 
-                            
+
+
                             if (!MatrixCalcultator.isSquaredMatrix(rows , cols))
                             {
                                 Console.WriteLine("Your Matrix is not a Squared Matrix hence, you can not calculate its dtereminat");
@@ -147,20 +166,38 @@ namespace MatrixArray
        
         }
 
-        public static void MatrixDeterminant(double [,] arr, int rows, int cols)
+        public static double MatrixDeterminant_2By2(double [,] arr, int rows, int cols)
         {
+            double det = 0.0;
             if (!MatrixCalcultator.isSquaredMatrix(rows, cols))
             {
                 Console.WriteLine("Your Matrix is not a Squared Matrix hence, you can not calculate its dtereminant");
             }
             else
             {
-                //for (int i = 0; i < arr.; i++)
-                {
-
-                }
+                
+               det = (arr[0, 0] * arr[1, 1]) - (arr[0, 1] * arr[1, 1]);
             }
+            return det;
             
+        }
+        public static double MatrixDeterminant_3By3(double[,] arr, int rows, int cols)
+        {
+            double det = 0.0;
+            if (!MatrixCalcultator.isSquaredMatrix(rows, cols))
+            {
+                Console.WriteLine("Your Matrix is not a Squared Matrix hence, you can not calculate its dtereminant");
+            }
+            else
+            {
+                double a = (arr[0, 0] * ((arr[1, 1] * arr[2, 2]) - (arr[1, 2] * arr[2, 1])));
+                double b = (arr[0, 1] * ((arr[1, 0] * arr[2, 2]) - (arr[1, 2] * arr[2, 0])));
+                double c = (arr[0, 2] * ((arr[1, 0] * arr[2, 1]) - (arr[1, 1] * arr[2, 0])));
+
+                det = a - b + c;
+            }
+            return det;
+
         }
 
         public static void MatrixMulitplication()
@@ -170,7 +207,7 @@ namespace MatrixArray
 
         public static void MatrixAddition()
         {
-
+            
         }
     }
 }
