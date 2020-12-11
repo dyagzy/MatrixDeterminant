@@ -11,8 +11,13 @@ namespace MatrixArray
         static void Main(string[] args)
         {
             MatrixCalcultator.PromptUser();
-            Console.ReadLine();
+            //MatrixArray.GeneratedArray();
+
+           Console.ReadLine();
 
         }
+
+        
+        
     }
 }
